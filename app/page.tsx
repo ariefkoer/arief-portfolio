@@ -4,9 +4,16 @@ import { ArrowRight, Code, Server, Briefcase, Award, Mail, Linkedin, Github, Ext
 import { useState } from 'react'
 import Image from 'next/image'
 
+interface Screenshot {
+  url: string;
+  thumbnail?: string;
+  caption: string;
+  description: string;
+}
+
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all')
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState<{project: any, index: number} | null> (null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const projects = [
@@ -321,9 +328,9 @@ export default function Portfolio() {
 
   const filteredProjects = activeFilter === 'all' 
     ? projects 
-    : projects.filter(p => p.category === activeFilter)
+    : projects.filter((p: any) => p.category === activeFilter)
 
-  const openLightbox = (project, index) => {
+  const openLightbox = (project: any, index: number) => {
     setSelectedImage({ project, index })
     setCurrentImageIndex(index)
   }
@@ -515,7 +522,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-4">Frontend</h3>
               <div className="flex flex-wrap gap-2">
-                {skills.frontend.map((skill, idx) => (
+                {skills.frontend.map((skill: string, idx: number) => (
                   <span key={idx} className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">
                     {skill}
                   </span>
@@ -529,7 +536,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-4">Backend</h3>
               <div className="flex flex-wrap gap-2">
-                {skills.backend.map((skill, idx) => (
+                {skills.backend.map((skill: string, idx: number) => (
                   <span key={idx} className="bg-purple-50 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">
                     {skill}
                   </span>
@@ -543,7 +550,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-4">Cloud & DevOps</h3>
               <div className="flex flex-wrap gap-2">
-                {skills.cloud.map((skill, idx) => (
+                {skills.cloud.map((skill: string, idx: number) => (
                   <span key={idx} className="bg-green-50 text-green-600 px-3 py-1 rounded-full text-sm font-medium">
                     {skill}
                   </span>
@@ -557,7 +564,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-4">Tools</h3>
               <div className="flex flex-wrap gap-2">
-                {skills.tools.map((skill, idx) => (
+                {skills.tools.map((skill: string, idx: number) => (
                   <span key={idx} className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-sm font-medium">
                     {skill}
                   </span>
@@ -768,7 +775,7 @@ export default function Portfolio() {
 
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((tech, idx) => (
+                    {project.tech.map((tech: string, idx: number) => (
                       <span
                         key={idx}
                         className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium"
@@ -801,7 +808,7 @@ export default function Portfolio() {
                   {/* Key Features */}
                   <div className="space-y-2">
                     <h4 className="font-semibold text-gray-900 mb-3">Key Features:</h4>
-                    {project.features.slice(0, 3).map((feature, idx) => (
+                    {project.features.slice(0, 3).map((feature: string, idx: number) => (
                       <div key={idx} className="flex items-start space-x-2">
                         <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-sm text-gray-600">{feature}</span>
@@ -1195,7 +1202,7 @@ export default function Portfolio() {
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold text-gray-600 mb-3">Technologies Used:</h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedImage.project.tech.map((tech, idx) => (
+                    {selectedImage.project.tech.map((tech: string, idx: number) => (
                       <span
                         key={idx}
                         className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium"
@@ -1210,7 +1217,7 @@ export default function Portfolio() {
                 <div className="border-t pt-6">
                   <h4 className="text-sm font-semibold text-gray-600 mb-3">All Screenshots:</h4>
                   <div className="grid grid-cols-6 gap-3">
-                    {selectedImage.project.screenshots.map((screenshot, idx) => (
+                    {selectedImage.project.screenshots.map((screenshot: Screenshot, idx: number) => (
                       <button
                         key={idx}
                         onClick={() => setCurrentImageIndex(idx)}
